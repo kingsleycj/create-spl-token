@@ -41,10 +41,27 @@ let signature = await mintTo(
 console.log('mint tx:', signature);
     
 
-    //Step 5: Get the token account of the to-wallet address and if it does not exist, create it
+//Step 5: Get the token account of the to-wallet address and if it does not exist, create it
+const toTokenAccount = await getOrCreateAssociatedTokenAccount(
+	connection,
+	fromWallet,
+	mint,
+	toWallet.publicKey
+);
+
     
 
-    //Step 6: Transfer the new token to the to-wallet's token account that was just created
-    // Transfer the new token to the "toTokenAccount" we just created
- 
+//Step 6: Transfer the new token to the to-wallet's token account that was just created
+// Transfer the new token to the "toTokenAccount" we just created
+signature = await transfer(
+	connection,
+	fromWallet,
+	fromTokenAccount.address,
+	toTokenAccount.address,
+	fromWallet.publicKey,
+	1000000000,
+	[]
+);
+console.log('transfer tx:', signature);
+
 })();
