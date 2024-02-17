@@ -28,7 +28,17 @@ const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
 
     
     
-    //Step 4: Mint a new token to the from account
+//Step 4: Mint a new token to the from account
+let signature = await mintTo(
+	connection,
+	fromWallet,
+	mint,
+	fromTokenAccount.address,
+	fromWallet.publicKey,
+	1000000000,
+	[]
+);
+console.log('mint tx:', signature);
     
 
     //Step 5: Get the token account of the to-wallet address and if it does not exist, create it
